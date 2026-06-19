@@ -1,0 +1,10 @@
+{
+  "name": "zhixing-coach-app",
+  "version": "1.0.0",
+  "description": "知行AI教练 - CloudBase 云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "axios": "^1.7.0"
+  }
+}

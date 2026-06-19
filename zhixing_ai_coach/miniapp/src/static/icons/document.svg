@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect x="14" y="8" width="36" height="48" rx="4" stroke="#e94560" stroke-width="2.5" fill="#fff"/>
+  <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="2" stroke-linecap="round"/>
+  <line x1="22" y1="30" x2="42" y2="30" stroke="#e94560" stroke-width="2" stroke-linecap="round"/>
+  <line x1="22" y1="38" x2="36" y2="38" stroke="#e94560" stroke-width="2" stroke-linecap="round"/>
+  <line x1="22" y1="46" x2="30" y2="46" stroke="#e94560" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="46" cy="12" r="5" fill="#e94560"/>
+  <text x="46" y="15" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">AI</text>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "name": "zhixing-ai-coach",
+  "version": "1.0.0",
+  "description": "知行AI教练",
+  "private": true,
+  "scripts": {
+    "build:mp-weixin": "uni build --platform mp-weixin"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@dcloudio/uni-app": "3.0.0-alpha-1000920260615733",
+    "@dcloudio/uni-mp-weixin": "3.0.0-alpha-1000920260615733",
+    "@dcloudio/vite-plugin-uni": "3.0.0-alpha-5010320260611001",
+    "vite": "5.2.8"
+  }
+}

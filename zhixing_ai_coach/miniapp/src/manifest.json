@@ -1,0 +1,44 @@
+{
+  "name": "知行AI教练",
+  "appid": "__UNI__XXXXXXX",
+  "description": "AI + 真人教练混合的个性化健身训练方案",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": true,
+      "waiting": true,
+      "autoclose": true,
+      "delay": 0
+    }
+  },
+  "quickapp": {},
+  "mp-weixin": {
+    "appid": "wxac7dfd7d6435c82a",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "postcss": true,
+      "minified": true
+    },
+    "usingComponents": true,
+    "permission": {
+      "scope.userInfo": {
+        "desc": "用于显示用户昵称和头像"
+      },
+      "scope.userLocation": {
+        "desc": "用于推荐附近健身房"
+      }
+    },
+    "functionalPages": true,
+    "requiredPrivateInfos": []
+  },
+  "uniStatistics": {
+    "enable": false
+  },
+  "vueVersion": "3"
+}

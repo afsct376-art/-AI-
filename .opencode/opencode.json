@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-sonnet-4-6",
+  "skills": {
+    "paths": [".opencode/skills"]
+  },
+  "references": {
+    "zhixing-coach": {
+      "path": "../zhixing_ai_coach",
+      "description": "Use for all questions about the Zhixing AI Coach project — decision tree engine, member classification, strategy modules, questionnaire design, prompt templates, delivery templates, and quality checklists"
+    }
+  }
+}

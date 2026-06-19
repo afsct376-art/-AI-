@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///data/zhixing.db
+      - SECRET_KEY=${SECRET_KEY:-change-me-in-production}
+      - WECHAT_APP_ID=${WECHAT_APP_ID:-}
+      - WECHAT_APP_SECRET=${WECHAT_APP_SECRET:-}
+      - AI_API_KEY=${AI_API_KEY:-}
+      - PLAN_PRICE=${PLAN_PRICE:-990}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

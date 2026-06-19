@@ -1,0 +1,1 @@
+{"domain": "zhixing-d1gp1p0aj9744d967.service.tcloudbase.com", "routes": [{"path": "/*", "upstreamResourceType": "SCF", "upstreamResourceName": "app", "enableAuth": false}]}

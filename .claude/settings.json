@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(powershell -ExecutionPolicy Bypass -File d:\\\\Codex\\\\build_excel.ps1)",
+      "PowerShell(powershell -ExecutionPolicy Bypass -File \"D:\\\\Codex\\\\build_excel.ps1\")",
+      "PowerShell($path = \"D:\\\\Codex\\\\build_excel_wang_v2.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell(Copy-Item \"D:\\\\Codex\\\\����ӱ_��֬���η���_V1.xlsx\" \"D:\\\\Codex\\\\����ӱ_��֬���η���_V2.xlsx\" -Force)",
+      "PowerShell($path = \"D:\\\\Codex\\\\build_wang_v3.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_ji_v2.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_xiong.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_xiong_v2.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_xiong_v3.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_xiong_v4.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_rick_v2.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_rick_v4.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_xiaofeng.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "PowerShell($path = \"D:\\\\Codex\\\\members\\\\build_scripts\\\\build_xiaofeng_v2.ps1\"; $content = [System.IO.File]::ReadAllText\\($path, [System.Text.Encoding]::UTF8\\); $bom = New-Object System.Text.UTF8Encoding $true; [System.IO.File]::WriteAllText\\($path, $content, $bom\\); powershell -ExecutionPolicy Bypass -File $path)",
+      "Bash(where opencode *)",
+      "Bash(opencode --version)",
+      "WebSearch",
+      "PowerShell(Write-Host \"=== Checking package managers ===\"; if \\(Get-Command scoop -ErrorAction SilentlyContinue\\) { Write-Host \"scoop: available\" } else { Write-Host \"scoop: NOT available\" }; if \\(Get-Command choco -ErrorAction SilentlyContinue\\) { Write-Host \"choco: available\" } else { Write-Host \"choco: NOT available\" }; if \\(Get-Command npm -ErrorAction SilentlyContinue\\) { Write-Host \"npm: available - v$\\(npm --version\\)\" } else { Write-Host \"npm: NOT available\" }; if \\(Get-Command node -ErrorAction SilentlyContinue\\) { Write-Host \"node: available - v$\\(node --version\\)\" } else { Write-Host \"node: NOT available\" }; Write-Host \"`n=== OS info ===\"; Write-Host \"OS: $\\(\\(Get-WmiObject Win32_OperatingSystem\\).Caption\\)\"; Write-Host \"Arch: $env:PROCESSOR_ARCHITECTURE\")",
+      "PowerShell(if \\($env:ANTHROPIC_API_KEY\\) { Write-Host \"ANTHROPIC_API_KEY: 已设置 \\(长度: $\\($env:ANTHROPIC_API_KEY.Length\\)\\)\" } else { Write-Host \"ANTHROPIC_API_KEY: 未设置\" })",
+      "PowerShell(Write-Host \"CLAUDE_API_KEY:\" $env:CLAUDE_API_KEY)",
+      "PowerShell(Write-Host \"ANTHROPIC_AUTH_TOKEN:\" $env:ANTHROPIC_AUTH_TOKEN)",
+      "PowerShell(Write-Host \"ANTHROPIC_API_KEY:\" $env:ANTHROPIC_API_KEY)",
+      "PowerShell(opencode --version)",
+      "PowerShell(opencode --help)",
+      "Bash(opencode --help)",
+      "PowerShell(opencode providers --help)",
+      "PowerShell(opencode providers list)",
+      "WebFetch(domain:docs.kanaries.net)",
+      "PowerShell(opencode models --help)",
+      "WebFetch(domain:opencode.ai)",
+      "PowerShell($configPath = \"$env:USERPROFILE\\\\.config\\\\opencode\"; if \\(Test-Path $configPath\\) { Write-Host \"Config dir exists\"; Get-ChildItem $configPath -Recurse } else { Write-Host \"No config dir at $configPath\" }; $localPath = \"$env:USERPROFILE\\\\.local\\\\share\\\\opencode\"; if \\(Test-Path $localPath\\) { Write-Host \"Local share dir exists:\"; Get-ChildItem $localPath -Recurse })",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\.config\\\\opencode\" -Recurse)",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"d:\\\\Codex\\\\.opencode\")",
+      "PowerShell(opencode providers login --help)",
+      "PowerShell(opencode models anthropic)",
+      "PowerShell(opencode run \"say hello in chinese\" -m anthropic/claude-haiku-4-5 --prompt \"Reply with just the single Chinese greeting phrase and nothing else.\")",
+      "PowerShell(opencode run --command \"Reply with just '�������' and nothing else\" -m anthropic/claude-haiku-4-5)",
+      "Read(//c/Users/Administrator/.local/share/opencode/**)",
+      "PowerShell(opencode models anthropic 2>&1)",
+      "PowerShell($desktop = [Environment]::GetFolderPath\\(\"Desktop\"\\); Write-Host \"桌面路径: $desktop\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Administrator\\.config\\opencode"
+    ]
+  }
+}

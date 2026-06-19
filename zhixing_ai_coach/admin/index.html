@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>知行AI教练 · 管理后台</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, 'Helvetica Neue', sans-serif; background: #f5f5f5; color: #333; }
+    .header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 22px; }
+    .header .stats { display: flex; gap: 30px; }
+    .header .stat { text-align: center; }
+    .header .stat-value { font-size: 24px; font-weight: 700; display: block; }
+    .header .stat-label { font-size: 12px; opacity: 0.7; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 16px; }
+    .member-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .member-card .top { display: flex; justify-content: space-between; align-items: start; }
+    .member-card .name { font-size: 18px; font-weight: 700; }
+    .member-card .type { font-size: 12px; padding: 3px 10px; border-radius: 6px; background: #e8f4fd; color: #1976d2; font-weight: 600; }
+    .member-card .type.type_g { background: #fce4ec; color: #c62828; }
+    .member-card .type.type_a { background: #e8f5e9; color: #2e7d32; }
+    .member-card .status { font-size: 13px; color: #999; margin-top: 6px; }
+    .member-card .dims { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+    .member-card .dim { font-size: 11px; background: #f0f0f0; padding: 2px 8px; border-radius: 4px; }
+    .member-card .actions { margin-top: 14px; display: flex; gap: 8px; }
+    .btn { padding: 8px 16px; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
+    .btn-primary { background: #1a1a2e; color: #fff; }
+    .btn-danger { background: #e94560; color: #fff; }
+    .btn-outline { background: none; border: 1px solid #ddd; color: #666; }
+    .plan-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; }
+    .plan-modal.active { display: flex; align-items: center; justify-content: center; }
+    .plan-modal .modal-content { background: #fff; border-radius: 16px; width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 30px; }
+    .plan-modal .modal-content h2 { margin-bottom: 16px; }
+    .plan-modal .modal-content pre { background: #f8f8f8; padding: 16px; border-radius: 8px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+    .plan-modal .modal-content textarea { width: 100%; min-height: 200px; border: 1px solid #ddd; border-radius: 8px; padding: 12px; font-size: 13px; margin-top: 12px; }
+    .plan-modal .modal-actions { display: flex; gap: 12px; margin-top: 16px; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>知行AI教练 · 后台</h1>
+    <div class="stats">
+      <div class="stat"><span class="stat-value" id="totalMembers">0</span><span class="stat-label">总会员</span></div>
+      <div class="stat"><span class="stat-value" id="completedPlans">0</span><span class="stat-label">已完成方案</span></div>
+      <div class="stat"><span class="stat-value" id="revenue">¥0</span><span class="stat-label">收入</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="member-grid" id="memberGrid"></div>
+  </div>
+
+  <div class="plan-modal" id="planModal">
+    <div class="modal-content">
+      <h2 id="modalTitle">方案详情</h2>
+      <pre id="modalContent"></pre>
+      <textarea id="modalEdit" placeholder="教练备注/修改..."></textarea>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeModal()">关闭</button>
+        <button class="btn btn-primary" onclick="saveEdits()">保存修改</button>
+        <button class="btn btn-danger" onclick="regeneratePlan()">重新生成</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = '/api'
+    let currentMemberId = ''
+
+    async function api(path, opts = {}) {
+      const token = localStorage.getItem('token')
+      const headers = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+      const res = await fetch(`${API_BASE}${path}`, { ...opts, headers })
+      if (!res.ok) throw new Error(await res.text())
+      return res.json()
+    }
+
+    async function loadMembers() {
+      try {
+        const data = await api('/users/members')
+        const grid = document.getElementById('memberGrid')
+        grid.innerHTML = data.members.map(m => `
+          <div class="member-card">
+            <div class="top">
+              <span class="name">${m.name}</span>
+              <span class="type ${(m.member_type || '').toLowerCase()}">${m.member_type || '待分类'}</span>
+            </div>
+            <div class="status">${m.status} · ${new Date(m.created_at).toLocaleDateString()}</div>
+            <div class="dims">
+              ${['经验','频率','器械','伤病','生活','心理'].map((label, i) =>
+                `<span class="dim">${label}:${[m.dim_experience,m.dim_frequency,m.dim_equipment,m.dim_injury,m.dim_lifestyle,m.dim_psychology][i]}</span>`
+              ).join('')}
+            </div>
+            <div class="actions">
+              ${m.has_plan ? `<button class="btn btn-primary" onclick="viewPlan('${m.id}')">查看方案</button>` : ''}
+              ${m.questionnaire_submitted ? `<button class="btn btn-danger" onclick="confirmRegenerate('${m.id}')">重新生成</button>` : ''}
+            </div>
+          </div>
+        `).join('')
+
+        document.getElementById('totalMembers').textContent = data.total
+        document.getElementById('completedPlans').textContent = data.members.filter(m => m.status === 'completed').length
+        document.getElementById('revenue').textContent = `¥${(data.members.filter(m => m.has_plan).length * 9.9).toFixed(1)}`
+      } catch (e) {
+        console.error('Failed to load members:', e)
+      }
+    }
+
+    async function viewPlan(memberId) {
+      currentMemberId = memberId
+      try {
+        const plan = await api(`/plans/${memberId}`)
+        document.getElementById('modalTitle').textContent = `${plan.plan_type} · ${plan.split_type} · ${plan.weekly_frequency}次/周`
+        document.getElementById('modalContent').textContent = plan.raw_content || '无内容'
+        document.getElementById('modalEdit').value = plan.coach_notes || ''
+        document.getElementById('planModal').classList.add('active')
+      } catch (e) {
+        alert('加载失败: ' + e.message)
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('planModal').classList.remove('active')
+    }
+
+    async function saveEdits() {
+      const notes = document.getElementById('modalEdit').value
+      // TODO: API endpoint to save coach edits
+      alert('保存成功')
+      closeModal()
+    }
+
+    function confirmRegenerate(memberId) {
+      if (confirm('确认重新生成方案？')) regeneratePlan(memberId)
+    }
+
+    async function regeneratePlan(memberId) {
+      try {
+        await api('/plans/generate', {
+          method: 'POST',
+          body: JSON.stringify({ member_id: memberId }),
+        })
+        alert('已开始重新生成')
+        loadMembers()
+      } catch (e) {
+        alert('失败: ' + e.message)
+      }
+    }
+
+    loadMembers()
+    setInterval(loadMembers, 30000)
+  </script>
+</body>
+</html>

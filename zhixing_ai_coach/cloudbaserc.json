@@ -1,0 +1,28 @@
+{
+  "envId": "zhixing-d1gp1p0aj9744d967",
+  "functionRoot": "cloudfunctions",
+  "functions": [
+    {
+      "name": "app",
+      "timeout": 120,
+      "envVariables": {
+        "WECHAT_APP_ID": "wxac7dfd7d6435c82a",
+        "WECHAT_APP_SECRET": "f647a445dc3cba6406b62f51cfa9b995",
+        "AI_API_KEY": "sk-68defc34274c4ba49df58b8695b5e9fc",
+        "JWT_SECRET": "zhixing-jwt-secret-2024"
+      },
+      "public": true,
+      "installDependency": true,
+      "triggers": [
+        {
+          "name": "http",
+          "type": "http",
+          "config": {
+            "path": "/app",
+            "method": "ANY"
+          }
+        }
+      ]
+    }
+  ]
+}
