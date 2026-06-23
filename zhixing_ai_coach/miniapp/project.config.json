@@ -38,10 +38,16 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "condition": false
+    "condition": false,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.7.2",
+  "libVersion": "3.16.1",
   "appid": "wxac7dfd7d6435c82a",
   "projectname": "zhixing-ai-coach",
   "condition": {},

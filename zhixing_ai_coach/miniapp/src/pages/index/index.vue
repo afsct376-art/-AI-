@@ -7,6 +7,18 @@
       <button class="btn-start" @tap="startNow">立即定制</button>
     </view>
 
+    <!-- 快捷入口 -->
+    <view class="quick-actions">
+      <view class="action-btn" @tap="navigateTo('/pages/plan/index')">
+        <image class="action-icon" src="/static/icons/target.svg" />
+        <text>我的方案</text>
+      </view>
+      <view class="action-btn" @tap="navigateTo('/pages/questionnaire/index')">
+        <image class="action-icon" src="/static/icons/ai.svg" />
+        <text>快速诊断</text>
+      </view>
+    </view>
+
     <view class="features">
       <view class="section-title">为什么选择知行AI教练</view>
       <view class="feature-grid">
@@ -54,6 +66,11 @@
         <text class="case-desc">{{ c.desc }}</text>
       </view>
     </view>
+
+    <!-- 悬浮客服按钮 -->
+    <view class="floating-chat" @tap="contactService">
+      <image class="chat-icon" src="/static/icons/phone.svg" />
+    </view>
   </view>
 </template>
 
@@ -86,6 +103,12 @@ export default {
         this.wechatLogin()
       }
     },
+    contactService() {
+      uni.showToast({ title: '客服功能建设中', icon: 'none' })
+    },
+    navigateTo(url) {
+      uni.navigateTo({ url })
+    },
     async wechatLogin() {
       uni.showLoading({ title: '登录中...' })
       try {
@@ -107,23 +130,26 @@ export default {
 <style scoped>
 .home { padding-bottom: 40rpx; }
 .hero {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  padding: 80rpx 40rpx 60rpx;
+  background: linear-gradient(135deg, var(--dark-color) 0%, #16213e 100%);
+  padding: 80rpx 40rpx 100rpx;
   text-align: center;
   color: #fff;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
 }
 .hero-title { font-size: 52rpx; font-weight: 700; display: block; }
 .hero-subtitle { font-size: 30rpx; opacity: 0.85; margin-top: 16rpx; display: block; }
 .hero-desc { font-size: 26rpx; opacity: 0.7; margin-top: 12rpx; display: block; }
 .btn-start {
   margin-top: 40rpx;
-  background: #e94560;
+  background: var(--primary-color);
   color: #fff;
   border: none;
-  border-radius: 50rpx;
+  border-radius: var(--radius-lg);
   padding: 24rpx 80rpx;
   font-size: 32rpx;
   font-weight: 600;
+  box-shadow: 0 10rpx 20rpx rgba(233, 69, 96, 0.3);
 }
 .section-title {
   font-size: 34rpx;
@@ -135,10 +161,10 @@ export default {
 .feature-card {
   width: 45%;
   background: #fff;
-  border-radius: 16rpx;
+  border-radius: var(--radius-lg);
   margin: 10rpx;
   padding: 30rpx 24rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  box-shadow: var(--shadow-base);
 }
 .feature-icon { width: 48rpx; height: 48rpx; display: block; }
 .feature-title { font-size: 30rpx; font-weight: 600; margin-top: 12rpx; display: block; }
@@ -165,7 +191,31 @@ export default {
 .type-info { flex: 1; }
 .type-name { font-size: 30rpx; font-weight: 600; display: block; }
 .type-desc { font-size: 24rpx; color: #666; margin-top: 4rpx; display: block; }
-.cases { padding: 0 30rpx; }
+.quick-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 30rpx;
+  background: #fff;
+  margin: -40rpx 30rpx 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
+}
+.action-btn { display: flex; flex-direction: column; align-items: center; }
+.action-icon { width: 64rpx; height: 64rpx; margin-bottom: 8rpx; }
+.floating-chat {
+  position: fixed;
+  bottom: 100rpx;
+  right: 40rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #e94560;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(233, 69, 96, 0.4);
+}
+.chat-icon { width: 50rpx; height: 50rpx; }
 .case-card {
   background: #fff;
   border-left: 8rpx solid #e94560;

@@ -14,25 +14,25 @@
         <text class="question-hint" v-if="q.hint">{{ q.hint }}</text>
 
         <!-- Text input -->
-        <input v-if="q.type === 'text'" class="input" v-model="answers[q.key]" :placeholder="q.placeholder || '请输入'" />
+        <van-field v-if="q.type === 'text'" v-model="answers[q.key]" :label="q.label" :placeholder="q.placeholder || '请输入'" />
 
         <!-- Textarea -->
-        <textarea v-if="q.type === 'textarea'" class="textarea" v-model="answers[q.key]" :placeholder="q.placeholder || '请详细描述'" />
+        <van-field v-if="q.type === 'textarea'" v-model="answers[q.key]" type="textarea" :label="q.label" :placeholder="q.placeholder || '请详细描述'" autosize />
 
         <!-- Radio -->
         <view v-if="q.type === 'radio'" class="options">
-          <view class="option" v-for="opt in q.options" :key="opt" :class="{ active: answers[q.key] === opt }" @tap="answers[q.key] = opt">
-            <text class="option-dot" :class="{ filled: answers[q.key] === opt }"></text>
-            <text class="option-text">{{ opt }}</text>
-          </view>
+          <text class="question-label">{{ q.label }}</text>
+          <van-radio-group :value="answers[q.key]" @change="(e) => answers[q.key] = e.detail">
+            <van-radio v-for="opt in q.options" :key="opt" :name="opt" custom-class="option-item">{{ opt }}</van-radio>
+          </van-radio-group>
         </view>
 
         <!-- Checkbox -->
         <view v-if="q.type === 'checkbox'" class="options">
-          <view class="option" v-for="opt in q.options" :key="opt" :class="{ active: (answers[q.key] || []).includes(opt) }" @tap="toggleCheckbox(q.key, opt)">
-            <text class="option-check" :class="{ checked: (answers[q.key] || []).includes(opt) }"></text>
-            <text class="option-text">{{ opt }}</text>
-          </view>
+          <text class="question-label">{{ q.label }}</text>
+          <van-checkbox-group :value="answers[q.key] || []" @change="(e) => answers[q.key] = e.detail">
+            <van-checkbox v-for="opt in q.options" :key="opt" :name="opt" custom-class="option-item">{{ opt }}</van-checkbox>
+          </van-checkbox-group>
         </view>
 
         <!-- Select -->

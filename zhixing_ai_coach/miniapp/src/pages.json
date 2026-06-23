@@ -13,7 +13,15 @@
       "style": {
         "navigationBarTitleText": "信息采集表",
         "navigationBarBackgroundColor": "#1a1a2e",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "usingComponents": {
+          "van-field": "/wxcomponents/vant/field/index",
+          "van-radio-group": "/wxcomponents/vant/radio-group/index",
+          "van-radio": "/wxcomponents/vant/radio/index",
+          "van-checkbox-group": "/wxcomponents/vant/checkbox-group/index",
+          "van-checkbox": "/wxcomponents/vant/checkbox/index",
+          "van-button": "/wxcomponents/vant/button/index"
+        }
       }
     },
     {
