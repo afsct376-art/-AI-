@@ -26,11 +26,15 @@ jobs:
           cd zhixing_ai_coach/miniapp
           npx uni build --platform mp-weixin
 
+      - name: Install miniprogram-ci
+        run: npm install -g miniprogram-ci
+
       - name: Upload to WeChat
-        uses: wechat-miniprogram/miniprogram-ci@v3
-        with:
-          appid: wxac7dfd7d6435c82a
-          private-key: ${{ secrets.WECHAT_PRIVATE_KEY }}
-          project-path: zhixing_ai_coach/miniapp/dist/build/mp-weixin
-          version: 1.0.${{ github.run_number }}
-          desc: ${{ github.event.head_commit.message || '自动部署' }}
+        run: |
+          miniprogram-ci upload \
+            --appid wxac7dfd7d6435c82a \
+            --pkp ${{ secrets.WECHAT_PRIVATE_KEY }} \
+            --project-path zhixing_ai_coach/miniapp/dist/build/mp-weixin \
+            --version 1.0.${{ github.run_number }} \
+            --desc "${{ github.event.head_commit.message || '自动部署' }}" \
+            --force
