@@ -29,11 +29,15 @@ jobs:
       - name: Install miniprogram-ci
         run: npm install -g miniprogram-ci
 
+      - name: Save private key
+        run: |
+          echo "${{ secrets.WECHAT_PRIVATE_KEY }}" > /tmp/private.key
+
       - name: Upload to WeChat
         run: |
           miniprogram-ci upload \
             --appid wxac7dfd7d6435c82a \
-            --pkp ${{ secrets.WECHAT_PRIVATE_KEY }} \
+            --pkp /tmp/private.key \
             --project-path zhixing_ai_coach/miniapp/dist/build/mp-weixin \
             --version 1.0.${{ github.run_number }} \
             --desc "${{ github.event.head_commit.message || '自动部署' }}" \
